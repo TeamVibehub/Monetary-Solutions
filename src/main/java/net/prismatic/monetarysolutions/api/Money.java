@@ -39,4 +39,12 @@ public class Money {
     public void increase(BigDecimal increasor) {
         money.pay(increasor.toString());
     }
+
+    /**
+     * Sets the player's money to a specific amount
+     * @param amount What to set the player's money to
+     */
+    public void set(String amount) {
+        money.set(amount);
+    }
 }

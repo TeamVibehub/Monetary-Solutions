@@ -31,7 +31,7 @@ public class MonetarySolutionsInitializer implements ModInitializer {
         EntityComponents.setRespawnCopyStrategy(MONEY, RespawnCopyStrategy.ALWAYS_COPY);
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal("money")
             .then(CommandManager.literal("get")
-                .then(CommandManager.argument("target", EntityArgumentType.player()))
+                .then(CommandManager.argument("target", EntityArgumentType.player())
                     .executes(context -> {
                         PlayerEntity player = EntityArgumentType.getPlayer(context, "target");
                         if (player != null) {
@@ -42,17 +42,17 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                             return -1;
                         }
                     }
-                )
+                ))
             )
             .then(CommandManager.literal("set")
                 .then(CommandManager.argument("target", EntityArgumentType.player()))
-                    .then(CommandManager.argument("amount", StringArgumentType.string()))
+                    .then(CommandManager.argument("amount", StringArgumentType.string())
                         .requires(source -> source.hasPermissionLevel(1))
                             .executes(context -> {
                                 PlayerEntity player = EntityArgumentType.getPlayer(context, "target");
                                 if (player != null) {
                                     if (new BigDecimal(StringArgumentType.getString(context, "amount")).signum() != -1) {
-                                        PlayerMoneyComponent money = MONEY.get(ComponentProvider.fromEntity(player));
+                                        Money money = new Money(player);
                                         money.set(StringArgumentType.getString(context, "amount"));
                                         return 1;
                                     } else {
@@ -65,6 +65,7 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                         )
                     )
                 )
+            )
         );
     }
 }
