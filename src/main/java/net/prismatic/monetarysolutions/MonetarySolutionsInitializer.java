@@ -35,7 +35,7 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                         PlayerEntity player = EntityArgumentType.getPlayer(context, "target");
                         if (player != null) {
                             Money money = new Money(player);
-                            context.getSource().sendFeedback(new LiteralText(money.get().toString()), false);
+                            context.getSource().sendFeedback(new LiteralText(player.getName().asString() + "'s balance: $" + money.get().toString()), false);
                             return 1;
                         } else {
                             return -1;
@@ -53,8 +53,10 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                                     if (!(BigDecimalUtils.isNegative(new BigDecimal(StringArgumentType.getString(context, "amount"))))) {
                                         Money money = new Money(player);
                                         money.set(StringArgumentType.getString(context, "amount"));
+                                                    context.getSource().sendFeedback(new LiteralText("Successfully set " + player.getName().asString() + "'s balance to $" + StringArgumentType.getString(context, "amount")), true);
                                         return 1;
                                     } else {
+                                        context.getSource().sendError(new LiteralText("You cannot set a player's balance to a negative amount!"));
                                         return -1;
                                     }
                                 } else {
@@ -76,17 +78,20 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                                     Money targetMoney = new Money(player);
                                     BigDecimal senderMoneyTemp = BigDecimalUtils.decrease(senderMoney.get(), StringArgumentType.getString(context, "amount"));
                                     if (BigDecimalUtils.isNegative(senderMoneyTemp)) {
+                                        context.getSource().sendError(new LiteralText("You cannot pay more than you have!"));
                                         return -1;
                                     } else {
                                         senderMoney.decrease(new BigDecimal(StringArgumentType.getString(context, "amount")));
                                         targetMoney.increase(new BigDecimal(StringArgumentType.getString(context, "amount")));
+                                        context.getSource().sendFeedback(new LiteralText("Successfully paid " + player.getName().asString() + " $" + StringArgumentType.getString(context, "amount")), true);
                                         return 1;
                                     }
                                 } else {
-                                    return 0;
+                                    context.getSource().sendError(new LiteralText("You cannot pay a negative amount!"));
+                                    return -1;
                                 }
                             } else {
-                                return 0;
+                                return -1;
                             }
                         }
                     )
