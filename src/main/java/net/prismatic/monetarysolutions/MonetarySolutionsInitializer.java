@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+import net.prismatic.monetarysolutions.api.Money;
 import net.prismatic.monetarysolutions.components.PlayerMoneyComponent;
 
 import java.math.BigDecimal;
@@ -34,8 +35,8 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                     .executes(context -> {
                         PlayerEntity player = EntityArgumentType.getPlayer(context, "target");
                         if (player != null) {
-                            PlayerMoneyComponent money = MONEY.get(ComponentProvider.fromEntity(player));
-                            context.getSource().sendFeedback(new LiteralText(money.amount()), false);
+                            Money money = new Money(player);
+                            context.getSource().sendFeedback(new LiteralText(money.get().toString()), false);
                             return 1;
                         } else {
                             return -1;
