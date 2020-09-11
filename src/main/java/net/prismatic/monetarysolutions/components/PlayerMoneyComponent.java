@@ -3,6 +3,7 @@ package net.prismatic.monetarysolutions.components;
 import dev.onyxstudios.cca.api.v3.entity.PlayerComponent;
 import nerdhub.cardinal.components.api.ComponentType;
 import net.minecraft.nbt.CompoundTag;
+import net.prismatic.monetarysolutions.MonetarySolutionsInitializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -15,8 +16,8 @@ public class PlayerMoneyComponent implements PlayerComponent {
     }
 
     @Override
-    public ComponentType<?> getComponentType() {
-        return null;
+    public @NotNull ComponentType<?> getComponentType() {
+        return MonetarySolutionsInitializer.MONEY;
     }
 
     @Override
