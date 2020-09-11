@@ -30,12 +30,13 @@ public class PlayerMoneyComponent implements PlayerComponent {
         return tag;
     }
 
-    public void spend(String amount) {
+    public boolean spend(String amount) {
         BigDecimal subtractor = this.money.subtract(new BigDecimal(amount));
         if (subtractor.signum() == -1) {
-            return;
+            return false;
         } else {
             this.money = subtractor;
+            return true;
         }
     }
 

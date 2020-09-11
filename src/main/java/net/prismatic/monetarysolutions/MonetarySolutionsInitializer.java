@@ -17,6 +17,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.prismatic.monetarysolutions.components.PlayerMoneyComponent;
 
+import java.math.BigDecimal;
+
 public class MonetarySolutionsInitializer implements ModInitializer {
 
     public static final ComponentType<PlayerMoneyComponent> MONEY =
@@ -48,7 +50,7 @@ public class MonetarySolutionsInitializer implements ModInitializer {
                             .executes(context -> {
                                 PlayerEntity player = EntityArgumentType.getPlayer(context, "target");
                                 if (player != null) {
-                                    if (IntegerArgumentType.getInteger(context, "amount") >= 0) {
+                                    if (new BigDecimal(StringArgumentType.getString(context, "amount")).signum() != -1) {
                                         PlayerMoneyComponent money = MONEY.get(ComponentProvider.fromEntity(player));
                                         money.set(StringArgumentType.getString(context, "amount"));
                                         return 1;
