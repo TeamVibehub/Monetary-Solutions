@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "specialities",
+  "version": "${version}",
+  "name": "Monetary Solutions",
+  "description": "Simple currency mod for Fabric.",
+  "authors": [
+    "PrismaticYT"
+  ],
+  "contact": {
+    "repo": "TeamVibehub/monetary-solutions"
+  },
+  "license": "GPL-3.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.prismatic.monetarysolutions.MonetarySolutionsInitializer"
+    ]
+  },
+  "mixins": [
+    "monetary-solutions.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.9.3+build.207",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  }
+}
