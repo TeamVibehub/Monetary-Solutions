@@ -5,7 +5,6 @@ import nerdhub.cardinal.components.api.ComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.prismatic.monetarysolutions.MonetarySolutionsInitializer;
 import org.jetbrains.annotations.NotNull;
-
 import java.math.BigDecimal;
 
 public class PlayerMoneyComponent implements PlayerComponent {
@@ -24,6 +23,7 @@ public class PlayerMoneyComponent implements PlayerComponent {
     public void fromTag(CompoundTag tag) {
         this.money = new BigDecimal(tag.getString("money"));
     }
+
     @Override
     public @NotNull CompoundTag toTag(CompoundTag tag) {
         tag.putString("money", this.money.toString());
@@ -41,6 +41,10 @@ public class PlayerMoneyComponent implements PlayerComponent {
 
     public void pay(String amount) {
         this.money = this.money.add(new BigDecimal(amount));
+    }
+
+    public void set(String amount) {
+        this.money = new BigDecimal(amount);
     }
 
     public String amount() {
