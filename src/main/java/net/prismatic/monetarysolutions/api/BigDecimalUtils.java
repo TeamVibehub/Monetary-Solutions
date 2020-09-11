@@ -20,7 +20,7 @@ public class BigDecimalUtils {
      * @param amount The amount to decrease by
      * @return The decreased BigDecimal
      */
-    public BigDecimal decrease(BigDecimal base, String amount) {
+    public static BigDecimal decrease(BigDecimal base, String amount) {
         return base.subtract(new BigDecimal(amount));
     }
 

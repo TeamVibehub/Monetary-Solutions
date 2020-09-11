@@ -67,16 +67,21 @@ public class MonetarySolutionsInitializer implements ModInitializer {
             )
             .then(CommandManager.literal("pay")
                 .then(CommandManager.argument("target", EntityArgumentType.player())
-                    .then(CommandManager.argument("amount", EntityArgumentType.player())
+                    .then(CommandManager.argument("amount", StringArgumentType.string())
                         .executes(context -> {
                             PlayerEntity player = EntityArgumentType.getPlayer(context, "target");
                             if (player != null) {
                                 if (!(BigDecimalUtils.isNegative(new BigDecimal(StringArgumentType.getString(context, "amount"))))) {
                                     Money senderMoney = new Money(context.getSource().getPlayer());
                                     Money targetMoney = new Money(player);
-                                    senderMoney.decrease(new BigDecimal(StringArgumentType.getString(context, "amount")));
-                                    targetMoney.increase(new BigDecimal(StringArgumentType.getString(context, "amount")));
-                                    return 1;
+                                    BigDecimal senderMoneyTemp = BigDecimalUtils.decrease(senderMoney.get(), StringArgumentType.getString(context, "amount"));
+                                    if (BigDecimalUtils.isNegative(senderMoneyTemp)) {
+                                        return -1;
+                                    } else {
+                                        senderMoney.decrease(new BigDecimal(StringArgumentType.getString(context, "amount")));
+                                        targetMoney.increase(new BigDecimal(StringArgumentType.getString(context, "amount")));
+                                        return 1;
+                                    }
                                 } else {
                                     return 0;
                                 }
