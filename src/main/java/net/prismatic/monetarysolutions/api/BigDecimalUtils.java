@@ -29,7 +29,7 @@ public class BigDecimalUtils {
      * @param decimal The BigDecimal to check
      * @return The check result
      */
-    public boolean isNegative(BigDecimal decimal) {
+    public static boolean isNegative(BigDecimal decimal) {
         return decimal.signum() == -1;
     }
 

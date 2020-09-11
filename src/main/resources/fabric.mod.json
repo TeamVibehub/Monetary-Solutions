@@ -3,7 +3,7 @@
   "id": "specialities",
   "version": "${version}",
   "name": "Monetary Solutions",
-  "description": "Simple currency mod for Fabric.",
+  "description": "Simple currency API for Fabric.",
   "authors": [
     "PrismaticYT"
   ],
