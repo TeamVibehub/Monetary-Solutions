@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "specialities",
+  "id": "monetarysolutions",
   "version": "${version}",
   "name": "Monetary Solutions",
   "description": "Simple currency API for Fabric.",
