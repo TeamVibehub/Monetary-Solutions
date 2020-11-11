@@ -15,5 +15,5 @@ dependencies {
   modImplementation 'com.github.TeamVibehub:monetary-solutions:<VERSION>'
 }
 ```
-Replace <VERSION> with the version you want to use.
+Replace \<VERSION\> with the version you want to use.
 Latest is 1.2.0.
